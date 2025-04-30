@@ -26,3 +26,23 @@ class PostForm(forms.Form):
         class Meta:
             model = Post
             fields = ["title", "content", "category", "tags"]
+
+
+
+class SearchForm(forms.Form):
+    search_q = forms.CharField(required=False)
+    category_id = forms.ModelChoiceField(queryset=Category.objects.all(), required=False)
+
+    orderings = (
+        ("title", "title"),
+        ("-title", "-title"),
+        ("rate", "rate"),
+        ("-rate", "-rate"),
+        ("created_at", "created_at"),
+        ("-created_at", "-created_at"),
+        ("updated_at", "updated_at"),
+        ("-updated_at", "-updated_at"),
+        (None, None)
+    )
+
+    ordering = forms.ChoiceField(choices=orderings, required=False)
